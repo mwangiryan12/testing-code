@@ -1,5 +1,5 @@
 
-from app import db
+from myapp.extensions import db
 
 class Image(db.Model):
     __tablename__ = 'images'

@@ -1,6 +1,5 @@
-# from flask_sqlalchemy import SQLAlchemy
-from app import db
-# db = SQLAlchemy()
+from myapp.extensions import db
+
 
 class Video(db.Model):
     __tablename__ = 'videos'

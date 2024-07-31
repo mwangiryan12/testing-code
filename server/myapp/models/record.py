@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from app import db
+from myapp.extensions import db
 
 class Record(db.Model):
     __tablename__ = 'records'
