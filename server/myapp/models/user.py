@@ -14,7 +14,7 @@ class User(db.Model):
     password_hash = db.Column(db.String(128), nullable=False)
     is_admin = db.Column(db.Boolean, default=False)  # Change to Boolean
     worker_id = db.Column(db.Integer)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=datetime.now)
     records = db.relationship('Record', backref='user', lazy=True)
 
     def set_password(self, password):
