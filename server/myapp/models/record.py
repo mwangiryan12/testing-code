@@ -26,7 +26,7 @@ def __init__(self, title, description, status='Pending', location=None, user_id=
             raise ValueError("Invalid status.")
         if Notation is not None and not self.validate_coordinates(Notation):
             raise ValueError("Invalid geographic coordinates.")
-        
+
         self.title = title
         self.description = description
         self.status = status
@@ -36,11 +36,15 @@ def __init__(self, title, description, status='Pending', location=None, user_id=
 def validate_title(title):
         return len(title) > 0 and len(title) <= 200       
 
+
 def validate_description(description):
         return len(description) > 0
+
 
 def validate_status(status):
         return status in ['Pending', 'InProgress', 'Completed']
 
+
 def validate_coordinates(coordinates):
         return coordinates is None or (isinstance(coordinates.location, (int, float)) and isinstance(coordinates.location, (int, float)))
+

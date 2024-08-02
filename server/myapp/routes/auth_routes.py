@@ -1,7 +1,9 @@
 from flask import Blueprint, request, jsonify
 from ..models.user import User, db
 
+
 auth_bp = Blueprint('auth', __name__)
+
 
 @auth_bp.route('/register', methods=['POST'])
 def register():
@@ -27,3 +29,4 @@ def login():
         return jsonify({'error': 'Invalid credentials'}), 401
     # Generate token or session here
     return jsonify({'message': 'Login successful'}), 200
+
