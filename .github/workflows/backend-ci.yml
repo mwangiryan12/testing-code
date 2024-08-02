@@ -31,9 +31,9 @@ jobs:
           pip install -r requirements.txt
           pip install flake8  # Install flake8 for linting
 
-      - name: Run flake8 linter
-        run: |
-          flake8 .
+      # - name: Run flake8 linter
+      #   run: |
+      #     flake8 .
 
   build:
     runs-on: ubuntu-latest

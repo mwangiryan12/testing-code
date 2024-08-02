@@ -1,8 +1,7 @@
 from datetime import datetime
 from xml.dom.minidom import Notation
-
-
 from myapp.extensions import db
+
 
 class Record(db.Model):
     __tablename__ = 'records'
@@ -15,9 +14,8 @@ class Record(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now)
     images = db.relationship('Image', backref='record', lazy=True)
     videos = db.relationship('Video', backref='record', lazy=True)
-# represents records in the records table, including details like title, description, location along with relationships
-# with images and videos
-def __init__(self, title, description, status='Pending', location=None, user_id=None):
+
+    def __init__(self, title, description, status='Pending', location=None, user_id=None):
         if not self.validate_title(title):
             raise ValueError("Title is required and must be less than 200 characters.")
         if not self.validate_description(description):
@@ -30,21 +28,21 @@ def __init__(self, title, description, status='Pending', location=None, user_id=
         self.title = title
         self.description = description
         self.status = status
-        self.location = Notation
+        self.location = location
         self.user_id = user_id
 
-def validate_title(title):
-        return len(title) > 0 and len(title) <= 200       
+    @staticmethod
+    def validate_title(title):
+        return len(title) > 0 and len(title) <= 200
 
-
-def validate_description(description):
+    @staticmethod
+    def validate_description(description):
         return len(description) > 0
 
-
-def validate_status(status):
+    @staticmethod
+    def validate_status(status):
         return status in ['Pending', 'InProgress', 'Completed']
 
-
-def validate_coordinates(coordinates):
+    @staticmethod
+    def validate_coordinates(coordinates):
         return coordinates is None or (isinstance(coordinates.location, (int, float)) and isinstance(coordinates.location, (int, float)))
-
