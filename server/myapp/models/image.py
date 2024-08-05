@@ -1,7 +1,5 @@
-from sqlite3 import IntegrityError
 from myapp.extensions import db
-from server.myapp.models import record
-
+from sqlite3 import IntegrityError
 
 class Image(db.Model):
     __tablename__ = 'images'
@@ -13,11 +11,11 @@ class Image(db.Model):
         if not self.validate_url(url):
             raise ValueError("Invalid image URL.")
         self.url = url
-        self.record_id = record_id
+        self.record_id = record_id  # Updated here to use record_id instead of record
 
     @staticmethod
     def validate_url(url):
-        # validation to check if the URL has a valid image
+        # Validation to check if the URL has a valid image extension
         valid_extensions = ['jpg', 'jpeg', 'png', 'gif']
         if not any(url.lower().endswith(ext) for ext in valid_extensions):
             return False
@@ -27,8 +25,8 @@ class Image(db.Model):
     def create_image(url, record_id=None):
         if not Image.validate_url(url):
             raise ValueError("Invalid image URL format.")
-
-        new_image = Image(url=url, record_id=record_id)
+        
+        new_image = Image(url=url, record_id=record_id)  # Updated here to use record_id
         try:
             db.session.add(new_image)
             db.session.commit()

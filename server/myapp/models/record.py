@@ -2,7 +2,6 @@ from datetime import datetime
 from xml.dom.minidom import Notation
 from myapp.extensions import db
 
-
 class Record(db.Model):
     __tablename__ = 'records'
     id = db.Column(db.Integer, primary_key=True)
@@ -14,6 +13,7 @@ class Record(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now)
     images = db.relationship('Image', backref='record', lazy=True)
     videos = db.relationship('Video', backref='record', lazy=True)
+
 
     def __init__(self, title, description, status='Pending', location=None, user_id=None):
         if not self.validate_title(title):
