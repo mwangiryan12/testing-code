@@ -11,8 +11,8 @@ class Record(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     status = db.Column(db.String(120))
     created_at = db.Column(db.DateTime, default=datetime.now)
-    images = db.relationship('Image', backref='record', lazy=True)
-    videos = db.relationship('Video', backref='record', lazy=True)
+    images = db.relationship('Image', backref='record_ref', lazy=True,cascade='all, delete-orphan')
+    videos = db.relationship('Video', backref='record_ref', lazy=True)
 
 
     def __init__(self, title, description, status='Pending', location=None, user_id=None):
@@ -22,8 +22,8 @@ class Record(db.Model):
             raise ValueError("Description is required.")
         if not self.validate_status(status):
             raise ValueError("Invalid status.")
-        if Notation is not None and not self.validate_coordinates(Notation):
-            raise ValueError("Invalid geographic coordinates.")
+        # if Notation is not None and not self.validate_coordinates(Notation):
+        #     raise ValueError("Invalid geographic coordinates.")
 
         self.title = title
         self.description = description
@@ -43,6 +43,6 @@ class Record(db.Model):
     def validate_status(status):
         return status in ['Pending', 'InProgress', 'Completed']
 
-    @staticmethod
-    def validate_coordinates(coordinates):
-        return coordinates is None or (isinstance(coordinates.location, (int, float)) and isinstance(coordinates.location, (int, float)))
+    # @staticmethod
+    # def validate_coordinates(coordinates):
+    #     return coordinates is None or (isinstance(coordinates.location, (int, float)) and isinstance(coordinates.location, (int, float)))

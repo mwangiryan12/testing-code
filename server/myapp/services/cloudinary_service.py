@@ -10,5 +10,6 @@ cloudinary.config(
 
 def upload_file(file):
     result = cloudinary.uploader.upload(file)
+    
     return result
 

@@ -15,7 +15,7 @@ class User(db.Model):
     is_admin = db.Column(db.Boolean, default=False)  # Change to Boolean
     worker_id = db.Column(db.Integer)
     created_at = db.Column(db.DateTime, default=datetime.now)
-    records = db.relationship('Record', backref='user', lazy=True)
+    records = db.relationship('Record', backref='user', lazy=True, cascade='all, delete-orphan')
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -23,4 +23,13 @@ class User(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+    
+    def serialize(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email,
+            'is_admin': self.is_admin,
+            'worker_id': self.worker_id
+        }
     
