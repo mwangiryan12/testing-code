@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 from ..models.record import Record, db
 from ..models.image import Image
 from ..models.video import Video
-from ..services.cloudinary_service import upload_file
+from ..services.cloudinary_services import upload_file
 
 video_bp = Blueprint('video', __name__)
 

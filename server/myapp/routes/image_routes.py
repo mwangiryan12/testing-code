@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from ..models.image import Image, db
-from ..services.cloudinary_service import upload_file
+from ..services.cloudinary_services import upload_file
 
 image_bp = Blueprint('image', __name__)
 
